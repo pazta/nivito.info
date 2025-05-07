@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nivito - Authentication Check</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            text-align: center;
+        }
+        .status-message { /* Renamed for more general use */
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin-top: 20px;
+            background-color: #f9f9f9;
+        }
+        .hidden {
+            display: none;
+        }
+        .error-message {
+            color: red;
+            font-weight: bold;
+        }
+        .processing-message {
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Nivito Authentication</h1>
+
+    <div id="statusMessageContainer" class="status-message">
+        <p id="processingMessage" class="processing-message">Processing login...</p>
+        <p id="errorMessage" class="error-message hidden">
+            Access Denied.
+            <br>
+            Please log in correctly from the previous page.
+        </p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+
+            const username = urlParams.get('username');
+            const password = urlParams.get('password');
+
+            const processingMsg = document.getElementById('processingMessage');
+            const errorMsg = document.getElementById('errorMessage');
+            const targetPage = 'nivito_id-539483983989393939.html'; // Define the target page
+
+            if (username === 'user1234' && password === 'user1234') {
+                // Credentials are correct, redirect
+                processingMsg.textContent = 'Credentials verified. Redirecting...';
+                // Perform the redirection
+                window.location.href = targetPage;
+            } else {
+                // Credentials are incorrect or missing, show error message
+                processingMsg.classList.add('hidden'); // Hide processing message
+                errorMsg.classList.remove('hidden');   // Show error message
+            }
+        });
+    </script>
+
+</body>
+</html>
